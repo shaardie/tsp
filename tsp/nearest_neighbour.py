@@ -15,9 +15,9 @@ def nearest_neighbour(matrix, start=0):
     :return: Ordered list of visited vertices
     :rtype: list
     """
-    path = []
+    path = [start]
     while len(matrix) != len(path):
-        path.append(start)
         matrix[:, start] = numpy.inf
         start = numpy.argmin(matrix[start])
+        path.append(start)
     return path
