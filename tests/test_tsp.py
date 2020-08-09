@@ -1,8 +1,7 @@
 import os
 import unittest
 
-from tsp import TSP
-from tsp.nearest_neighbour import nearest_neighbour
+from tsp import TSP, nearest_neighbour, double_nearest_neighbour
 
 
 def get_problem(name):
@@ -43,4 +42,31 @@ class TestTSP(unittest.TestCase):
             # Solve test and check result
             self.assertEqual(
                 nearest_neighbour(tsp.matrix, test["start"]), test["result"]
+            )
+
+    def test_double_nearest_neighbour(self):
+        """Test the double nearest neighbour algorithm.
+        """
+        # Test Cases
+        tests = [
+            {
+                "start": 0,
+                "result": [0, 4, 1, 2, 5, 3],
+                "problem": "rheinlandproblem",
+            },
+            {
+                "start": 2,
+                "result": [0, 1, 4, 2, 5, 3],
+                "problem": "rheinlandproblem",
+            },
+        ]
+
+        # Iterate through the tests
+        for test in tests:
+            # Load test
+            tsp = TSP.load(get_problem(test["problem"]))
+            # Solve test and check result
+            self.assertEqual(
+                double_nearest_neighbour(
+                    tsp.matrix, test["start"]), test["result"]
             )
