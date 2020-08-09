@@ -24,21 +24,16 @@ class TSP:
         """
         numpy.savetxt(filename, self.matrix, delimiter=",")
 
-    def nearest_neighbor(self, start=0):
-        """Solve the TSP with the nearest neighbour algorithm.
+    def get_weight(self, path):
+        """Get the weight of the given path.
 
-        For details take a look at
-        https://en.wikipedia.org/wiki/Nearest_neighbour_algorithm
-
-        :param start: Vertex to start with, defaults to 0
-        :type start: int, optional
-        :return: Ordered list of visited vertices
-        :rtype: list
+        :param path: Path to calculate weight for
+        :type path: list
+        :return: weight of the tour
+        :rtype: float
         """
-        path = []
-        while len(self.matrix) != len(path):
-            path.append(start)
-            self.matrix[:, start] = numpy.inf
-            start = numpy.argmin(self.matrix[start])
-
-        return path
+        path_length = len(path)
+        weigth = 0
+        for i in range(path_length):
+            weigth += self.matrix[i, (i+1) % path_length]
+        return weigth

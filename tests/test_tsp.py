@@ -2,6 +2,7 @@ import os
 import unittest
 
 from tsp import TSP
+from tsp.nearest_neighbour import nearest_neighbour
 
 
 def get_problem(name):
@@ -18,7 +19,7 @@ def get_problem(name):
 
 
 class TestTSP(unittest.TestCase):
-    def test_nearest_neighbor(self):
+    def test_nearest_neighbour(self):
         """Test the nearest neighbour algorithm.
         """
         # Test Cases
@@ -41,5 +42,5 @@ class TestTSP(unittest.TestCase):
             tsp = TSP.load(get_problem(test["problem"]))
             # Solve test and check result
             self.assertEqual(
-                tsp.nearest_neighbor(test["start"]), test["result"]
+                nearest_neighbour(tsp.matrix, test["start"]), test["result"]
             )
